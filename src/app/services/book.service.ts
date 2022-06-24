@@ -7,27 +7,27 @@ import { Order, PastOrder } from "../models/order";
 @Injectable({providedIn:"root"})
 export class Bookservice {
   public listBook(category:string): Promise<Book[]> {
-    return API.get("books", `/books?category=${category}`, null);
+    return API.get("books", `/books?category=${category}`, Book.empty());
   }
 
   public getBook(bookId:string):Promise<Book> {
-    return API.get("books", `/books/${bookId}`, null);
+    return API.get("books", `/books/${bookId}`, Book.empty());
   }
 
   public search(query:string):Promise<Book[]> {
-    return API.get("search", `/search?q=${query}`, null);
+    return API.get("search", `/search?q=${query}`, Book.empty());
   }
 
   public getFriendRecommendations(): Promise<Recommendation[]> {
-    return API.get("recommendations", "/recommendations", null);
+    return API.get("recommendations", "/recommendations", Recommendation.empty());
   }
 
   public getBestSellers(): Promise<string[]> {
-    return API.get("bestsellers", "/bestsellers", null);
+    return API.get("bestsellers", "/bestsellers", {});
   }
 
   public async addToCart(bookId:string, price:number) {
-    const bookInCart = await API.get("cart", `/cart/${bookId}`, null);
+    const bookInCart = await API.get("cart", `/cart/${bookId}`, {});
     // if the book already exists in the cart, increase the quantity
     if (bookInCart) {
       return API.put("cart", "/cart", {
@@ -59,7 +59,7 @@ export class Bookservice {
   }
 
   public async listOrderInCart():Promise<Order[]> {
-    return API.get("cart", "/cart", null);
+    return API.get("cart", "/cart", Order.empty());
   }
 
   public async checkout(orders: Order[]) {
@@ -71,6 +71,6 @@ export class Bookservice {
   }
 
   public getPastOrders(): Promise<PastOrder[]>{
-    return API.get("orders", "/orders", null);
+    return API.get("orders", "/orders", PastOrder.empty());
   }
 }

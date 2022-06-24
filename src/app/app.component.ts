@@ -11,8 +11,8 @@ import { Bookservice } from './services/book.service';
 })
 export class AppComponent  {
   name = 'Angular';
-  public authenticated$ = this.auth.isAuthenticated$;
+  // public authenticated$ = this.auth.isAuthenticated$;
 
-  constructor(private auth: AuthenticationService, private bookSvc: Bookservice){    
+  constructor(private bookSvc: Bookservice){
   }
 }
